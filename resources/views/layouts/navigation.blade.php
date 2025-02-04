@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    @auth
+                        <x-nav-link :href="route('stores.index')" :active="request()->routeIs('stores.index')">
+                            {{ __('Stores') }}
+                        </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
@@ -41,6 +46,9 @@
                         <x-slot name="content">
                             <x-dropdown-link :href="route('dashboard')">
                                 {{ __('Dashboard') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('stores.create')">
+                                {{ __('Create new Store') }}
                             </x-dropdown-link>
 
                             <x-dropdown-link :href="route('profile.edit')">
@@ -96,6 +104,12 @@
             @auth
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('stores.index')" :active="request()->routeIs('stores.index')">
+                    {{ __('Stores') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('stores.create')" :active="request()->routeIs('stores.create')">
+                    {{ __('Create new Store') }}
                 </x-responsive-nav-link>
             @endauth
         </div>
