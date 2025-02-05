@@ -20,9 +20,31 @@
                         {{ __('Kamu dapat membuat hingga 5 store baru!') }}
                     </x-card.description>
                     <x-card.content>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, similique atque repudiandae,
-                        velit nihil est illum magnam quo, blanditiis quasi sed quae itaque ex! Aspernatur quis aliquam
-                        tempore dicta repellat.
+                        <form action="{{ route('stores.store') }}" method="post" enctype="multipart/form-data" novalidate
+                            class="[&>div]:mb-6 mt-6">
+                            @csrf
+                            <div>
+                                <x-input-label for="logo" :value="__('Logo')" class="sr-only" />
+                                <input id="logo" name="logo" type="file" />
+                                <x-input-error :messages="$errors->get('logo')" class="mt-2" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="name" :value="__('Name')" />
+                                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
+                                    :value="old('name')" required autofocus />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="description" :value="__('Description')" />
+                                <x-textarea id="description" type="text" name="description" :value="old('description')"
+                                    required autofocus>
+                                </x-textarea>
+                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                            </div>
+                            <x-primary-button>Create</x-primary-button>
+                        </form>
                     </x-card.content>
                 </div>
             </x-card>
