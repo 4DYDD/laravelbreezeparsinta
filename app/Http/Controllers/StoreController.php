@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRequest;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class StoreController extends Controller
 {
@@ -62,7 +63,9 @@ class StoreController extends Controller
      */
     public function edit(Request $request, Store $store)
     {
-        abort_if($request->user()->isNot($store->user), 401);
+        // abort_if($request->user()->isNot($store->user), 401);
+        Gate::authorize('update', $store);
+
         return view('stores.form', [
             'store' => $store,
             'form_method' => 'PUT',
@@ -83,6 +86,8 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request, Store $store)
     {
+        Gate::authorize('update', $store);
+
         // $file = $request->file('logo');
         // ...['logo' => $file->store('images/stores')]
 
