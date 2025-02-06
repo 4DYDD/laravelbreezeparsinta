@@ -11,4 +11,9 @@ class StoreObserver
     {
         $store->slug = str()->slug($store->name);
     }
+
+    public function updating(Store $store)
+    {
+        $store->slug = str()->slug($store->name);
+    }
 }

@@ -36,6 +36,25 @@
             {{ $slot }}
         </main>
     </div>
+
+    <script>
+        const form = document.getElementById('myForm');
+
+        const textarea = document.getElementById('description');
+        const errorSpan = document.getElementById('error-description');
+
+        textarea.addEventListener('input', function() {
+            if (this.value.length > 255) {
+                errorSpan.textContent = "The description field must not be greater than 255 characters";
+                textarea.classList.add('!border-red-500');
+                textarea.classList.add('!ring-red-500');
+            } else {
+                errorSpan.textContent = ""; // Hilangkan pesan error jika valid
+                textarea.classList.remove('!border-red-500');
+                textarea.classList.remove('!ring-red-500');
+            }
+        });
+    </script>
 </body>
 
 </html>
