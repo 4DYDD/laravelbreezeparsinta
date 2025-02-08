@@ -11,8 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --}}
-    {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -37,6 +36,21 @@
         </main>
     </div>
 
+
+    <script>
+        function handleDrop(event) {
+            const file = event.dataTransfer.files[0]; // Ambil file yang di-drop
+            if (file) {
+                const fileInput = document.getElementById('dropzone-file');
+                fileInput.files = event.dataTransfer.files; // Set file input dengan file yang di-drop
+                document.querySelector('[x-ref="fileInput"]').dispatchEvent(new Event('change')); // Trigger change event
+            }
+
+            // Hilangkan highlight
+            event.target.classList.remove('bg-gray-200');
+
+        }
+    </script>
     <script>
         const form = document.getElementById('myForm');
 

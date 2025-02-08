@@ -32,12 +32,14 @@
                                 @auth
                                     @if (auth()->user()->name == $store->user->name)
                                         <a href="{{ route('stores.edit', $store->id) }}"
-                                            class=" flex px-3 py-1 text-yellow-600 bg-yellow-200 rounded-lg absolute right-[4.5rem] -top-1.5">
+                                            class=" flex px-3 py-1 bg-gray-700 text-white rounded-lg absolute right-[2rem] -top-1.5"
+                                            title="Edit My Store">
                                             Edit
                                         </a>
                                         <span
-                                            class="px-2 py-1 text-green-600 bg-green-200 rounded-lg absolute -right-3 -top-1.5">
-                                            My Store
+                                            class="px-2 py-1 bg-gray-700 text-white rounded-lg absolute -right-3 -top-1.5 cursor-pointer"
+                                            title="My Store">
+                                            ⭐
                                         </span>
                                     @endif
                                 @endauth

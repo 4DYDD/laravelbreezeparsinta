@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -34,6 +35,12 @@ class StoreController extends Controller
             'form_route' => route('stores.store'),
             'button_text' => 'Create',
         ]);
+
+
+        // if (Auth::user()->hasVerifiedEmail()) {
+        // } else {
+        //     abort(404);
+        // }
     }
 
     /**
@@ -63,7 +70,6 @@ class StoreController extends Controller
      */
     public function edit(Request $request, Store $store)
     {
-        // abort_if($request->user()->isNot($store->user), 401);
         Gate::authorize('update', $store);
 
         return view('stores.form', [
@@ -88,12 +94,16 @@ class StoreController extends Controller
     {
         Gate::authorize('update', $store);
 
-        // $file = $request->file('logo');
-        // ...['logo' => $file->store('images/stores')]
+        $validatedData = $request->validated(); // Simpan data yang divalidasi
 
-        $store->update(([
-            ...$request->validated(),
-        ]));
+        $file = $request->file('logo');
+
+        if ($file) { // Periksa apakah user mengunggah logo baru
+            $validatedData['logo'] = $file->store('images/stores'); // Update hanya jika ada logo baru
+        }
+
+        $store->update($validatedData); // Gunakan $validatedData untuk update
+
         return to_route('stores.index');
     }
 
