@@ -26,14 +26,16 @@
                             @method($form_method)
                             <div>
                                 @if ($store->logo)
-                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($store->logo) }}"
-                                        alt="{{ $store->name }}"
-                                        class="m-auto mb-5 border border-gray-300 rounded-full shadow size-24 shadow-gray-400">
+                                    <div
+                                        class="flex justify-center m-auto mb-5 overflow-hidden bg-center border-2 border-gray-300 rounded-full size-48">
+                                        <img class="object-cover" src="{{ Storage::url($store->logo) }}"
+                                            alt="{{ $store->name }}">
+                                    </div>
                                 @else
                                     <div
-                                        class="flex items-center justify-center m-auto mb-5 bg-center border border-gray-300 rounded-full shadow size-24 shadow-gray-400">
-                                        <img src="{{ \Illuminate\Support\Facades\Storage::url('images/stores/store.png') }}"
-                                            alt="{{ $store->name }}" class="size-16">
+                                        class="flex justify-center m-auto mb-5 overflow-hidden bg-center border-2 border-gray-300 rounded-full size-48">
+                                        <img class="object-center" src="{{ Storage::url('images/stores/store.png') }}"
+                                            alt="{{ $store->name }}">
                                     </div>
                                 @endif
 
@@ -68,7 +70,7 @@
 
                                         </div>
                                         <input id="dropzone-file" name="logo" type="file" class="hidden"
-                                            x-ref="fileInput"
+                                            autocomplete="off" x-ref="fileInput"
                                             @change="fileName = $refs.fileInput.files.length > 0 ? $refs.fileInput.files[0].name : 'Pilih Logo'" />
                                     </label>
                                 </div>
@@ -78,6 +80,7 @@
                             </div>
 
                             <div>
+                                {{-- :value="old('name', $store->name ?? '')" --}}
                                 <x-input-label for="name" :value="__('Name')" />
                                 <x-text-input id="name" class="block w-full mt-1" type="text" name="name"
                                     :value="old('name', $store->name ?? '')" required autofocus />

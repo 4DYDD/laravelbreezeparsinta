@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StoreStatus;
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
@@ -16,8 +18,12 @@ class StoreController extends Controller
      */
     public function index()
     {
+        $stores = Store::query()
+            ->where('status', StoreStatus::ACTIVE)
+            ->latest()
+            ->get();
         return view('stores.index', [
-            'stores' => Store::latest()->get(),
+            'stores' => $stores,
         ]);
     }
 
@@ -35,12 +41,6 @@ class StoreController extends Controller
             'form_route' => route('stores.store'),
             'button_text' => 'Create',
         ]);
-
-
-        // if (Auth::user()->hasVerifiedEmail()) {
-        // } else {
-        //     abort(404);
-        // }
     }
 
     /**
@@ -81,10 +81,6 @@ class StoreController extends Controller
             'form_route' => route('stores.update', $store),
             'button_text' => 'Update',
         ]);
-        // if (Auth::user()->id == $store->user_id) {
-        // } else {
-        // return to_route('stores.index');
-        // }
     }
 
     /**
@@ -96,10 +92,13 @@ class StoreController extends Controller
 
         $validatedData = $request->validated(); // Simpan data yang divalidasi
 
+        // dd($validatedData);
+
         $file = $request->file('logo');
 
         if ($file) { // Periksa apakah user mengunggah logo baru
             $validatedData['logo'] = $file->store('images/stores'); // Update hanya jika ada logo baru
+            Storage::delete($store->logo);
         }
 
         $store->update($validatedData); // Gunakan $validatedData untuk update

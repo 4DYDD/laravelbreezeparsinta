@@ -15,9 +15,11 @@
                         <x-card class="flex flex-col justify-between p-6 mx-5 shadow md:mx-0 shadow-gray-400">
 
                             <div>
-                                <img src="{{ \Illuminate\Support\Facades\Storage::url($store->logo) }}"
-                                    alt="{{ $store->name }}"
-                                    class="m-auto mb-5 border border-gray-300 rounded-full shadow size-24 shadow-gray-400">
+                                <div
+                                    class="flex justify-center m-auto mb-5 overflow-hidden border-2 border-gray-300 rounded-full size-24">
+                                    <img src="{{ Storage::url($store->logo) }}" alt="{{ $store->name }}"
+                                        class="object-cover">
+                                </div>
 
                                 <x-card.title>{{ $store->name }}</x-card.title>
 
