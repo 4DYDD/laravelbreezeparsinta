@@ -14,6 +14,13 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        $admin = User::create([
+            'name' => 'admincuy',
+            'email' => 'admincuy@gmail.com',
+            'password' => 'admincuy',
+            'email_verified_at' => now(),
+        ]);
+
         $user1 = User::create([
             'name' => 'somwancuy',
             'email' => 'somwancuy@gmail.com',
@@ -28,27 +35,27 @@ class RoleSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        $role1 = Role::create([
-            'name' => 'admin'
-        ]);
-        $role2 = Role::create([
-            'name' => 'moderator'
-        ]);
-        $role3 = Role::create([
-            'name' => 'loyalis'
-        ]);
-        $role4 = Role::create([
-            'name' => 'member baru'
-        ]);
 
-        $user1->roles()->attach($role1->id);
-        $user1->roles()->attach($role2->id);
-        $user1->roles()->attach($role3->id);
-        $user1->roles()->attach($role4->id);
+        collect([
+            [
+                'name' => 'admin'
+            ],
+            [
+                'name' => 'partner'
+            ],
+            [
+                'name' => 'moderator'
+            ],
+            [
+                'name' => 'loyalis'
+            ],
+            [
+                'name' => 'member baru'
+            ],
+        ])->each(fn($role) => Role::create($role));
 
-        $user2->roles()->attach($role1->id);
-        $user2->roles()->attach($role2->id);
-        $user2->roles()->attach($role3->id);
-        $user2->roles()->attach($role4->id);
+        $admin->assignRole(Role::find(1));
+        $user1->assignRole(Role::find(2));
+        $user2->assignRole(Role::find(3));
     }
 }

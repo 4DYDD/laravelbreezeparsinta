@@ -27,6 +27,25 @@ class StoreController extends Controller
         ]);
     }
 
+    public function list()
+    {
+        $stores = Store::query()
+            ->latest()
+            ->paginate(10);
+
+        return view('stores.list', [
+            'stores' => $stores,
+        ]);
+    }
+
+    public function approve(Store $store)
+    {
+        $store->status = StoreStatus::ACTIVE;
+        $store->save();
+
+        return back();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

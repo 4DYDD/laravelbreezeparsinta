@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'logo' => [$this->method() === 'POST' ? 'required' : '', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'name' => ['required', 'string', 'max:50'],
-            'description' => ['required', 'string', 'min:3', 'max:255'],
+            'description' => ['required', 'string', 'min:3'],
         ];
     }
 }
