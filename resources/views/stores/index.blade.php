@@ -44,7 +44,16 @@
                                             ⭐
                                         </span>
                                     @endif
+                                    {{-- @dd(auth()->user()->isAdmin()) --}}
+                                    @if (auth()->user()->IsAdmin())
+                                        <span
+                                            class="absolute px-2 py-1 text-xs text-white bg-gray-700 rounded-lg cursor-pointer -left-3 -top-0.5"
+                                            title="My Store">
+                                            {{ $store->user->name }} Store
+                                        </span>
+                                    @endif
                                 @endauth
+
 
                             </div>
 
