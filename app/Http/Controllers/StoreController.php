@@ -22,6 +22,13 @@ class StoreController extends Controller
             ->where('status', StoreStatus::ACTIVE)
             ->latest()
             ->get();
+
+        // $stores_pending = Store::query()
+        //     ->where('status', StoreStatus::PENDING)
+        //     ->latest()
+        //     ->get();
+        // 'stores_pending' => $stores_pending->toArray(),
+
         return view('stores.index', [
             'stores' => $stores,
         ]);

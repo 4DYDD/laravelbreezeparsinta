@@ -6,6 +6,8 @@
     </x-slot>
 
     @slot('title', 'Stores')
+    @slot('stores_pending', isset($store_pending) ? $store_pending : [])
+
 
     <div class="py-6">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -21,14 +23,15 @@
                                         class="object-cover">
                                 </div>
 
-                                <x-card.title>{{ $store->name }}</x-card.title>
+                                <x-card.title>
+                                    {{ $store->name }}
+                                </x-card.title>
 
                                 <x-card.description class="mt-2 text-justify">
                                     <span class="px-3"></span>
                                     {{ Str::limit($store->description, 130, '...') }}
                                 </x-card.description>
                             </div>
-
 
                             <div class="text-sm font-semibold mt-2 h-[0.6rem] flex justify-start items-center relative">
                                 @auth

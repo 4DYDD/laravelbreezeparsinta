@@ -5,3 +5,7 @@
 .transall {
     @apply transition-all duration-100 ease-out;
 }
+
+.transcenter {
+    @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
+}
