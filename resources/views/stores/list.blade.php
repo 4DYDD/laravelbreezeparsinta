@@ -10,7 +10,12 @@
     @slot('title', 'List Stores')
 
     <x-container>
+        <div class="mb-8">
+            {{ $stores->links() }}
+        </div>
+
         <div class="grid grid-cols-3 gap-6">
+
 
             @foreach ($stores as $store)
                 <x-card>
