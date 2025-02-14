@@ -53,6 +53,10 @@
                                 </x-dropdown-link>
                             @endif
 
+                            <x-dropdown-link :href="route('stores.mine')">
+                                {{ __('My Stores') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link :href="route('stores.create')">
                                 {{ __('Create new Store') }}
                             </x-dropdown-link>
@@ -116,6 +120,16 @@
                 {{ __('Stores') }}
             </x-responsive-nav-link>
             @auth
+                @if (auth()->user()->isAdmin())
+                    <x-responsive-nav-link :href="route('stores.list')">
+                        {{ __('List Stores') }}
+                    </x-responsive-nav-link>
+                @endif
+
+                <x-responsive-nav-link :href="route('stores.mine')">
+                    {{ __('My Stores') }}
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link :href="route('stores.create')" :active="request()->routeIs('stores.create')">
                     {{ __('Create new Store') }}
                 </x-responsive-nav-link>

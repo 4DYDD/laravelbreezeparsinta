@@ -23,14 +23,9 @@ class StoreController extends Controller
             ->latest()
             ->get();
 
-        // $stores_pending = Store::query()
-        //     ->where('status', StoreStatus::PENDING)
-        //     ->latest()
-        //     ->get();
-        // 'stores_pending' => $stores_pending->toArray(),
-
         return view('stores.index', [
             'stores' => $stores,
+            'showStatus' => false,
         ]);
     }
 
@@ -51,6 +46,18 @@ class StoreController extends Controller
         $store->save();
 
         return back();
+    }
+
+    public function mine(Request $request)
+    {
+        $stores = Store::query()
+            ->where('user_id', $request->user()->id)
+            ->latest()
+            ->paginate(3);
+        return view('stores.mine', [
+            'stores' => $stores,
+            'showStatus' => true,
+        ]);
     }
 
     /**
