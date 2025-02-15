@@ -1,3 +1,9 @@
+@auth
+    @php
+        $isAdmin = auth()->user()->IsAdmin();
+    @endphp
+@endauth
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -47,7 +53,7 @@
                                 {{ __('Dashboard') }}
                             </x-dropdown-link>
 
-                            @if (auth()->user()->isAdmin())
+                            @if ($isAdmin)
                                 <x-dropdown-link :href="route('stores.list')">
                                     {{ __('List Stores') }}
                                 </x-dropdown-link>
@@ -120,7 +126,7 @@
                 {{ __('Stores') }}
             </x-responsive-nav-link>
             @auth
-                @if (auth()->user()->isAdmin())
+                @if ($isAdmin)
                     <x-responsive-nav-link :href="route('stores.list')">
                         {{ __('List Stores') }}
                     </x-responsive-nav-link>

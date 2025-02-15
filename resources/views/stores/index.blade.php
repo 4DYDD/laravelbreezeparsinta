@@ -13,8 +13,11 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-1 gap-6 p-3 md:grid-cols-3">
+                    @php
+                        $isAdmin = auth()->user()->IsAdmin();
+                    @endphp
                     @foreach ($stores as $store)
-                        <x-stores-item :$store :$showStatus />
+                        <x-stores-item :$store :$showStatus :$isAdmin />
                     @endforeach
                 </div>
             </div>

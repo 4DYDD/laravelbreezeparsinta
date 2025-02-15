@@ -1,6 +1,7 @@
 @props([
     'store' => [],
     'showStatus' => false,
+    'isAdmin' => false,
 ])
 
 <x-card class="flex flex-col justify-between p-6 mx-5 shadow md:mx-0 shadow-gray-400">
@@ -24,21 +25,23 @@
         @auth
             @if (auth()->user()->name == $store->user->name)
                 <a href="{{ route('stores.edit', $store->id) }}"
-                    class=" flex px-3 py-1 bg-gray-700 text-white rounded-lg absolute right-[2rem] -top-1.5"
+                    class="flex px-3 py-1 bg-gray-700 text-white rounded-lg absolute {{ !request()->routeIs('stores.mine') ? 'right-[2rem]' : '-right-3' }}  -top-1.5"
                     title="Edit My Store">
                     Edit
                 </a>
-                <span class="px-2 py-1 bg-gray-700 text-white rounded-lg absolute -right-3 -top-1.5 cursor-pointer"
-                    title="My Store">
-                    ⭐
-                </span>
+                @if (!request()->routeIs('stores.mine'))
+                    <span class="px-2 py-1 bg-gray-700 text-white rounded-lg absolute -right-3 -top-1.5 cursor-pointer"
+                        title="My Store">
+                        ⭐
+                    </span>
+                @endif
             @endif
 
             @if ($showStatus)
                 <x-badge>{{ $store->status }}</x-badge>
             @endif
 
-            @if (auth()->user()->IsAdmin())
+            @if ($isAdmin)
                 <span class="absolute px-2 py-1 text-xs text-white bg-gray-700 rounded-lg cursor-pointer -left-3 -top-0.5"
                     title="My Store">
                     {{ $store->user->name }} Store

@@ -19,6 +19,7 @@ class StoreController extends Controller
     public function index()
     {
         $stores = Store::query()
+            ->with('user:id,name')
             ->where('status', StoreStatus::ACTIVE)
             ->latest()
             ->get();
@@ -32,6 +33,7 @@ class StoreController extends Controller
     public function list()
     {
         $stores = Store::query()
+            ->with('user:id,name')
             ->latest()
             ->paginate(3);
 
@@ -51,6 +53,7 @@ class StoreController extends Controller
     public function mine(Request $request)
     {
         $stores = Store::query()
+            ->with('user:id,name')
             ->where('user_id', $request->user()->id)
             ->latest()
             ->paginate(3);
