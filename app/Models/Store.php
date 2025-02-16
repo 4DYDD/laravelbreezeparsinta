@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Enums\StoreStatus;
 use App\Models\User;
+use App\Models\Product;
+use App\Enums\StoreStatus;
 use App\Observers\StoreObserver;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ObservedBy(StoreObserver::class)]
 
@@ -38,4 +40,11 @@ class Store extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+
 }

@@ -10,6 +10,7 @@ Route::get('/dashboard', Controllers\DashboardController::class)->middleware(['a
 
 
 Route::get('stores', [Controllers\StoreController::class, 'index'])->name('stores.index');
+Route::get('stores/show/{store:slug}', [Controllers\StoreController::class, 'show'])->name('stores.show');
 
 
 Route::middleware('auth')->group(function () {

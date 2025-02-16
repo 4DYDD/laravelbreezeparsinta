@@ -6,7 +6,7 @@
     </x-slot>
 
     @slot('title', 'Stores')
-    @slot('stores_pending', isset($store_pending) ? $store_pending : [])
+    {{-- @slot('stores_pending', $store_pending ?? []) --}}
 
 
     <div class="py-6">
@@ -14,7 +14,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-1 gap-6 p-3 md:grid-cols-3">
                     @php
-                        $isAdmin = auth()->user()->IsAdmin();
+                        $isAdmin = auth()->user()?->IsAdmin();
                     @endphp
                     @foreach ($stores as $store)
                         <x-stores-item :$store :$showStatus :$isAdmin />

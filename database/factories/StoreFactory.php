@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\StoreStatus;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 
 /**
@@ -17,12 +19,12 @@ class StoreFactory extends Factory
         $id_user = ['2', '3'];
 
         return [
-            'user_id' => fake()->randomElement($id_user),
+            'user_id' => rand(2, 10),
             'logo' => 'images/stores/store.png',
             'name' => $name,
             'slug' => str($name)->slug(),
-            'description' => fake()->text(200),
-            'status' => 'pending',
+            'description' => fake()->paragraphs(2, true),
+            'status' => StoreStatus::ACTIVE,
         ];
     }
 }
