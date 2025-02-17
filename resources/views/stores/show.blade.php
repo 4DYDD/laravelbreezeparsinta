@@ -15,7 +15,7 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @php
-                    $isAdmin = auth()->user()->IsAdmin();
+                    $isAdmin = auth()->user()?->IsAdmin();
                 @endphp
                 <x-card class="container flex flex-col justify-between px-6 py-4 mx-auto shadow shadow-gray-400">
 
@@ -61,7 +61,7 @@
                 <x-card class="container flex flex-col justify-between p-6 mx-auto mt-5 shadow shadow-gray-400">
 
                     <div
-                        class="h-16 text-xl sm:text-2xl font-bold bg-gray-800 text-white rounded-lg shadow w-[10rem] mx-auto sm:mx-0 flex justify-center items-center mb-5">
+                        class="h-16 text-xl sm:text-2xl font-bold bg-gray-700 text-white rounded-lg shadow w-[10rem] mx-auto sm:mx-0 flex justify-center items-center mb-5">
                         Products</div>
 
                     @foreach ($products as $product)

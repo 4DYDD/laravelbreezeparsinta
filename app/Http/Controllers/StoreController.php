@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\StoreStatus;
-use App\Http\Requests\StoreRequest;
+use App\Mail\StorePublished;
 use App\Models\Store;
-use Illuminate\Auth\Events\Verified;
+use App\Enums\StoreStatus;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
@@ -47,6 +49,8 @@ class StoreController extends Controller
     {
         $store->status = StoreStatus::ACTIVE;
         $store->save();
+
+        Mail::to($store->user)->send(new StorePublished($store));
 
         return back();
     }
