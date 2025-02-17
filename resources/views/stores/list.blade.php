@@ -31,10 +31,12 @@
                         </span>
                     </x-card.header>
 
-                    <x-card.content class="flex flex-col justify-between mt-2 h-44">
+                    <x-card.content class="flex flex-col justify-between mt-2 h-52">
                         <x-card.description class="px-6 text-justify">
                             <span class="px-3"></span>
                             {{ Str::limit($store->description, 130, '...') }}
+                            <p class="mt-2 text-sm text-gray-400">{{ $store->products_count }}
+                                {{ str('product')->plural($store->products_count) }}</p>
                         </x-card.description>
 
                         <div class="flex justify-end p-3 space-y-6">

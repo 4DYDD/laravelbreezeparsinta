@@ -13,13 +13,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class StoreFactory extends Factory
 {
+    private static bool $hasGeneratedTwo = false; // Status awal: belum pernah menghasilkan 2
+
     public function definition(): array
     {
-        $name = fake()->name();
-        $id_user = ['2', '3'];
+        $name = str(fake()->word())->title();
+        $userId = self::$hasGeneratedTwo ? rand(2, 10) : 2; // Jika sudah pernah 2, random antara 2-10, jika belum, paksa 2
+
+        if ($userId === 2) {
+            self::$hasGeneratedTwo = true; // Tandai bahwa angka 2 sudah pernah dihasilkan
+        }
 
         return [
-            'user_id' => rand(2, 10),
+            'user_id' => $userId,
             'logo' => 'images/stores/store.png',
             'name' => $name,
             'slug' => str($name)->slug(),

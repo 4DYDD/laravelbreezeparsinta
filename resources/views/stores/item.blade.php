@@ -1,3 +1,5 @@
+@use('\App\Enums\StoreStatus')
+
 @props([
     'store' => [],
     'showStatus' => false,
@@ -22,11 +24,15 @@
         </x-card.description>
     </a>
 
-    <div class="text-sm font-semibold mt-2 h-[0.6rem] flex justify-start items-center relative">
+    <div class="text-sm font-semibold mt-2 h-[2rem] flex justify-between items-center relative">
         @auth
+
+            @if ($showStatus)
+                <x-badge title="{{ $store->status }}">{{ $store->status === StoreStatus::ACTIVE ? '✅' : '⭕' }}</x-badge>
+            @endif
+
             @if (auth()->user()->name == $store->user->name)
-                <a href="{{ route('stores.edit', $store->id) }}"
-                    class="flex px-3 py-1 bg-gray-700 text-white rounded-lg absolute {{ !request()->routeIs('stores.mine') ? 'right-[2rem]' : '-right-3' }}  -top-1.5"
+                <a href="{{ route('stores.edit', $store->id) }}" class="flex px-3 py-1 text-white bg-gray-700 rounded-lg"
                     title="Edit My Store">
                     Edit
                 </a>
@@ -38,17 +44,13 @@
                 @endif
             @endif
 
-            @if ($showStatus)
-                <x-badge>{{ $store->status }}</x-badge>
-            @endif
-
             @if ($isAdmin)
                 <span class="absolute px-2 py-1 text-xs text-white bg-gray-700 rounded-lg cursor-default -left-3 -top-0.5">
                     {{ $store->user->name }} Store
                 </span>
             @endif
-        @endauth
 
+        @endauth
     </div>
 
 </x-card>

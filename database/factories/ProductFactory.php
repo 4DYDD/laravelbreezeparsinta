@@ -19,7 +19,7 @@ class ProductFactory extends Factory
     {
         return [
             'store_id' => Store::factory(),
-            'name' => $title = str(fake()->sentence())->title(),
+            'name' => $title = str(fake()->word(2))->title(),
             'slug' => str($title)->slug(),
             'price' => rand(111111, 999999),
         ];

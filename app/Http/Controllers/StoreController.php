@@ -34,6 +34,7 @@ class StoreController extends Controller
     {
         $stores = Store::query()
             ->with('user:id,name')
+            ->withCount('products')
             ->latest()
             ->paginate(3);
 
@@ -102,6 +103,7 @@ class StoreController extends Controller
         return view('stores.show', [
             'store' => $store->loadCount('products'),
             'showStatus' => true,
+            'products' => $store->products()->latest()->get(),
         ]);
     }
 
@@ -132,7 +134,6 @@ class StoreController extends Controller
 
         $validatedData = $request->validated(); // Simpan data yang divalidasi
 
-        // dd($validatedData);
 
         $file = $request->file('logo');
 
